@@ -7,28 +7,34 @@ import javax.swing.*;
 public class Frame extends JFrame implements ActionListener {
     JButton[] letters = new JButton[26];
     JButton resetButton, exitButton;
-    JPanel lettersPanel, menuPanel, gamePanel, guessingPanel;
+    JLabel word;
+    JPanel lettersPanel, menuPanel, gamePanel, wordPanel;
 
-    HangmanPanel picturePanel;
+    HangmanPanel picturePanel = new HangmanPanel();
 
     public Frame() {
-        // hangman picture panel
-        picturePanel = new HangmanPanel();
+        // the word
+        word = new JLabel();
+        word.setFont(new Font("Cambria", Font.BOLD, 50));
+        word.setHorizontalAlignment(JLabel.CENTER);
+        word.setText("__ __ __ __ __ __ __ __ __ __ __ __ __ __");
 
-        // panel for player to guess
-        guessingPanel = new JPanel();
-        guessingPanel.setPreferredSize(new Dimension(0, 150));
-        guessingPanel.setBackground(Color.WHITE);
+        // panel that displays the word for the player to guess
+        wordPanel = new JPanel();
+        wordPanel.setPreferredSize(new Dimension(0, 140));
+        wordPanel.setBackground(Color.WHITE);
+        wordPanel.setLayout(new BorderLayout());
+        wordPanel.add(word, BorderLayout.CENTER);
 
         // panel for the hangman and the words
         gamePanel = new JPanel();
         gamePanel.setLayout(new BorderLayout());
         gamePanel.add(picturePanel, BorderLayout.CENTER);
-        gamePanel.add(guessingPanel, BorderLayout.SOUTH);
+        gamePanel.add(wordPanel, BorderLayout.SOUTH);
 
         // reset button setup
         resetButton = new JButton();
-        resetButton.setFont(new Font("Cambria", Font.PLAIN, 20));
+        resetButton.setFont(new Font("Cambria", Font.BOLD, 20));
         resetButton.setText("RESET");
         resetButton.setBackground(Color.WHITE);
         resetButton.setForeground(Color.BLACK);
@@ -37,7 +43,7 @@ public class Frame extends JFrame implements ActionListener {
 
         // exit button setup
         exitButton = new JButton();
-        exitButton.setFont(new Font("Cambria", Font.PLAIN, 20));
+        exitButton.setFont(new Font("Cambria", Font.BOLD, 20));
         exitButton.setText("EXIT");
         exitButton.setBackground(Color.WHITE);
         exitButton.setForeground(Color.BLACK);
@@ -54,7 +60,7 @@ public class Frame extends JFrame implements ActionListener {
 
         // panel for 26 letters
         lettersPanel = new JPanel();
-        lettersPanel.setPreferredSize(new Dimension(770, 110));
+        lettersPanel.setPreferredSize(new Dimension(780, 115));
         lettersPanel.setBackground(Color.WHITE);
         lettersPanel.setLayout(new GridLayout(2, 13)); // rows, columns
 
@@ -72,8 +78,8 @@ public class Frame extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);      
         this.setVisible(true);
 
-        // System.out.println(this.getContentPane().getWidth());
-        // System.out.println(this.getContentPane().getHeight());
+        System.out.println(this.getContentPane().getWidth());
+        System.out.println(this.getContentPane().getHeight());
     }
 
     public void initLetters() {
@@ -82,7 +88,7 @@ public class Frame extends JFrame implements ActionListener {
         while (i < 26) {
             letters[i] = new JButton();
             letters[i].setFocusable(false);
-            letters[i].setFont(new Font("Times New Roman", Font.BOLD, 20));
+            letters[i].setFont(new Font("Times New Roman", Font.BOLD, 25));
             letters[i].setText(Character.toString(y));
             letters[i].setBackground(Color.WHITE);
             letters[i].setForeground(Color.BLACK);
@@ -102,12 +108,17 @@ public class Frame extends JFrame implements ActionListener {
         }
 
         if (action == resetButton) {
-            if (picturePanel.lost()) {
-                picturePanel.reset();
+            picturePanel.reset();
+            initLetters();
+            char y = 'A';
+            for (int i = 0; i < letters.length; i++) {
+                if (action == letters[i]) {
+                    letters[i].setText(Character.toString(y));
+                    letters[i].setEnabled(true);
+                    
+                }
             }
-            else {
-                picturePanel.wrong();
-            }
+            lettersPanel.repaint();
         }
 
         for (int i = 0; i < letters.length; i++) {
