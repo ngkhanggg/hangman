@@ -8,18 +8,23 @@ public class Frame extends JFrame implements ActionListener {
     JButton[] letters = new JButton[26];
     JButton resetButton, exitButton;
     JLabel gameTitle;
-    JPanel lettersPanel, menuPanel, guessingPanel;
+    JPanel lettersPanel, menuPanel, gamePanel, guessingPanel;
 
-    GamePanel gamePanel;
+    HangmanPanel picturePanel;
 
     public Frame() {
-        // panel for the hangman and the words
-        gamePanel = new GamePanel();
+        // hangman picture panel
+        picturePanel = new HangmanPanel();
 
         // panel for player to guess
         guessingPanel = new JPanel();
         guessingPanel.setPreferredSize(new Dimension(0, 150));
         guessingPanel.setBackground(Color.YELLOW);
+
+        // panel for the hangman and the words
+        gamePanel = new JPanel();
+        gamePanel.setLayout(new BorderLayout());
+        gamePanel.add(picturePanel, BorderLayout.CENTER);
         gamePanel.add(guessingPanel, BorderLayout.SOUTH);
 
         // game title setup
@@ -60,7 +65,7 @@ public class Frame extends JFrame implements ActionListener {
 
         // panel for 26 letters
         lettersPanel = new JPanel();
-        lettersPanel.setPreferredSize(new Dimension(690, 105));
+        lettersPanel.setPreferredSize(new Dimension(770, 110));
         lettersPanel.setBackground(Color.BLACK);
         lettersPanel.setLayout(new GridLayout(2, 13)); // rows, columns
 
