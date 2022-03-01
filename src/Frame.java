@@ -11,13 +11,14 @@ public class Frame extends JFrame implements ActionListener {
     JPanel lettersPanel, menuPanel, gamePanel, wordPanel;
 
     HangmanPanel picturePanel = new HangmanPanel();
+    Game game = new Game();
 
     public Frame() {
         // the word
         word = new JLabel();
         word.setFont(new Font("Cambria", Font.BOLD, 50));
         word.setHorizontalAlignment(JLabel.CENTER);
-        word.setText("__ __ __ __ __ __ __ __ __ __ __ __ __ __");
+        word.setForeground(Color.BLACK);
 
         // panel that displays the word for the player to guess
         wordPanel = new JPanel();
@@ -78,8 +79,7 @@ public class Frame extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);      
         this.setVisible(true);
 
-        System.out.println(this.getContentPane().getWidth());
-        System.out.println(this.getContentPane().getHeight());
+        setWord();
     }
 
     public void initLetters() {
@@ -99,6 +99,22 @@ public class Frame extends JFrame implements ActionListener {
         }
     }
 
+    public void resetKeyboard() {
+        int i = 0;
+        char y = 'A';
+        while (i < 26) {
+            letters[i].setText(Character.toString(y));
+            letters[i].setEnabled(true);
+            i++;
+            y++;
+        }
+    }
+
+    public void setWord() {
+        String word = game.getWord();
+        this.word.setText(word);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object action = e.getSource();
@@ -109,16 +125,8 @@ public class Frame extends JFrame implements ActionListener {
 
         if (action == resetButton) {
             picturePanel.reset();
-            initLetters();
-            char y = 'A';
-            for (int i = 0; i < letters.length; i++) {
-                if (action == letters[i]) {
-                    letters[i].setText(Character.toString(y));
-                    letters[i].setEnabled(true);
-                    
-                }
-            }
-            lettersPanel.repaint();
+            resetKeyboard();
+            setWord();
         }
 
         for (int i = 0; i < letters.length; i++) {
