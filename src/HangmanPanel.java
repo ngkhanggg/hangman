@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class HangmanPanel extends JPanel {
-    int count = 0;
+    private int count = 0;
 
     public HangmanPanel() {
         this.setPreferredSize(new Dimension(0, 250));

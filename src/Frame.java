@@ -72,8 +72,8 @@ public class Frame extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);      
         this.setVisible(true);
 
-        System.out.println(this.getContentPane().getWidth());
-        System.out.println(this.getContentPane().getHeight());
+        // System.out.println(this.getContentPane().getWidth());
+        // System.out.println(this.getContentPane().getHeight());
     }
 
     public void initLetters() {
