@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class HangmanPanel extends JPanel {
-    private int count = 0;
+    private int count;
 
     public HangmanPanel() {
         this.setPreferredSize(new Dimension(0, 250));
@@ -19,7 +19,7 @@ public class HangmanPanel extends JPanel {
         this.repaint();
     }
 
-    public boolean lost() {
+    public boolean isLost() {
         return count == 6;
     }
 
