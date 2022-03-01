@@ -108,5 +108,12 @@ public class Frame extends JFrame implements ActionListener {
         if (action == exitButton) {
             System.exit(0);
         }
+
+        for (int i = 0; i < letters.length; i++) {
+            if (action == letters[i]) {
+                letters[i].setText("");
+                letters[i].setEnabled(false);
+            }
+        }
     }
 }
