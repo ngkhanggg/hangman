@@ -9,11 +9,13 @@ public class HangmanPanel extends JPanel {
         this.setBackground(Color.WHITE);
     }
 
+    // reset
     public void reset() {
         count = 0;
         this.repaint();
     }
 
+    // move to next picture if guess if wrong
     public void wrong() {
         count++;
         this.repaint();
