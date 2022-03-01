@@ -7,7 +7,6 @@ import javax.swing.*;
 public class Frame extends JFrame implements ActionListener {
     JButton[] letters = new JButton[26];
     JButton resetButton, exitButton;
-    JLabel gameTitle;
     JPanel lettersPanel, menuPanel, gamePanel, guessingPanel;
 
     HangmanPanel picturePanel;
@@ -19,7 +18,7 @@ public class Frame extends JFrame implements ActionListener {
         // panel for player to guess
         guessingPanel = new JPanel();
         guessingPanel.setPreferredSize(new Dimension(0, 150));
-        guessingPanel.setBackground(Color.YELLOW);
+        guessingPanel.setBackground(Color.WHITE);
 
         // panel for the hangman and the words
         gamePanel = new JPanel();
@@ -27,21 +26,12 @@ public class Frame extends JFrame implements ActionListener {
         gamePanel.add(picturePanel, BorderLayout.CENTER);
         gamePanel.add(guessingPanel, BorderLayout.SOUTH);
 
-        // game title setup
-        gameTitle = new JLabel();
-        gameTitle.setFont(new Font("Cambria", Font.PLAIN, 30));
-        gameTitle.setText("HANGMAN");
-        gameTitle.setBackground(Color.BLACK);
-        gameTitle.setForeground(Color.WHITE);
-        gameTitle.setFocusable(false);
-        gameTitle.setHorizontalAlignment(JLabel.CENTER);
-
         // reset button setup
         resetButton = new JButton();
         resetButton.setFont(new Font("Cambria", Font.PLAIN, 20));
         resetButton.setText("RESET");
-        resetButton.setBackground(Color.BLACK);
-        resetButton.setForeground(Color.WHITE);
+        resetButton.setBackground(Color.WHITE);
+        resetButton.setForeground(Color.BLACK);
         resetButton.setFocusable(false);
         resetButton.addActionListener(this);
 
@@ -49,8 +39,8 @@ public class Frame extends JFrame implements ActionListener {
         exitButton = new JButton();
         exitButton.setFont(new Font("Cambria", Font.PLAIN, 20));
         exitButton.setText("EXIT");
-        exitButton.setBackground(Color.BLACK);
-        exitButton.setForeground(Color.WHITE);
+        exitButton.setBackground(Color.WHITE);
+        exitButton.setForeground(Color.BLACK);
         exitButton.setFocusable(false);
         exitButton.addActionListener(this);
 
@@ -58,15 +48,14 @@ public class Frame extends JFrame implements ActionListener {
         menuPanel = new JPanel();
         menuPanel.setLayout(new BorderLayout());
         menuPanel.setPreferredSize(new Dimension(0, 40));
-        menuPanel.setBackground(Color.BLACK);
+        menuPanel.setBackground(Color.WHITE);
         menuPanel.add(resetButton, BorderLayout.WEST);
         menuPanel.add(exitButton, BorderLayout.EAST);
-        menuPanel.add(gameTitle, BorderLayout.CENTER);
 
         // panel for 26 letters
         lettersPanel = new JPanel();
         lettersPanel.setPreferredSize(new Dimension(770, 110));
-        lettersPanel.setBackground(Color.BLACK);
+        lettersPanel.setBackground(Color.WHITE);
         lettersPanel.setLayout(new GridLayout(2, 13)); // rows, columns
 
         // set up 26 letters
@@ -82,6 +71,9 @@ public class Frame extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setLocationRelativeTo(null);      
         this.setVisible(true);
+
+        System.out.println(this.getContentPane().getWidth());
+        System.out.println(this.getContentPane().getHeight());
     }
 
     public void initLetters() {
@@ -92,8 +84,8 @@ public class Frame extends JFrame implements ActionListener {
             letters[i].setFocusable(false);
             letters[i].setFont(new Font("Times New Roman", Font.BOLD, 20));
             letters[i].setText(Character.toString(y));
-            letters[i].setBackground(Color.BLACK);
-            letters[i].setForeground(Color.WHITE);
+            letters[i].setBackground(Color.WHITE);
+            letters[i].setForeground(Color.BLACK);
             letters[i].addActionListener(this);
             lettersPanel.add(letters[i]);
             i++;
@@ -107,6 +99,15 @@ public class Frame extends JFrame implements ActionListener {
 
         if (action == exitButton) {
             System.exit(0);
+        }
+
+        if (action == resetButton) {
+            if (picturePanel.lost()) {
+                picturePanel.reset();
+            }
+            else {
+                picturePanel.wrong();
+            }
         }
 
         for (int i = 0; i < letters.length; i++) {
