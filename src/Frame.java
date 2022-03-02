@@ -112,7 +112,8 @@ public class Frame extends JFrame implements ActionListener {
 
     public void setWord() {
         String word = game.getWord();
-        this.word.setText(word);
+        this.word.setText(("__ ").repeat(word.length()));
+        wordPanel.repaint();
     }
 
     @Override
