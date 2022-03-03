@@ -5,15 +5,18 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Frame extends JFrame implements ActionListener {
-    JButton[] letters = new JButton[26];
-    JButton resetButton, exitButton;
-    JLabel word;
-    JPanel lettersPanel, menuPanel, gamePanel, wordPanel;
+    // import other classes
+    private HangmanPanel picturePanel = new HangmanPanel();
+    private Game game = new Game();
 
-    HangmanPanel picturePanel = new HangmanPanel();
-    Game game = new Game();
+    // components of the frame
+    private JButton[] letters = new JButton[26];
+    private JButton resetButton, exitButton;
+    private JLabel word;
+    private JPanel lettersPanel, menuPanel, gamePanel, wordPanel;
 
-    String currentWord;
+    // variables
+    private String currentWord;
 
     public Frame() {
         // the word
