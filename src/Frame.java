@@ -18,6 +18,7 @@ public class Frame extends JFrame implements ActionListener {
     // variables
     private String currentWord;
 
+    // constructor
     public Frame() {
         // the word
         word = new JLabel();
@@ -84,9 +85,11 @@ public class Frame extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);      
         this.setVisible(true);
 
+        // set first word when the class frame is called
         setWord();
     }
 
+    // initialize 26 letters for the keyboard
     public void initKeyboard() {
         int i = 0;
         char y = 'A';
@@ -104,6 +107,7 @@ public class Frame extends JFrame implements ActionListener {
         }
     }
 
+    // reset keyboard
     public void resetKeyboard() {
         int i = 0;
         char y = 'A';
@@ -115,26 +119,32 @@ public class Frame extends JFrame implements ActionListener {
         }
     }
 
+    // set word
     public void setWord() {
         this.currentWord = game.getWord();
         this.word.setText(("__ ").repeat(this.currentWord.length()));
         wordPanel.repaint();
     }
 
+    // action performer
     @Override
     public void actionPerformed(ActionEvent e) {
         Object action = e.getSource();
 
+        // exit button
         if (action == exitButton) {
             System.exit(0);
         }
 
+        // reset button
+        // get new word, reset count
         if (action == resetButton) {
             picturePanel.reset();
             resetKeyboard();
             setWord();
         }
 
+        // keyboard
         for (int i = 0; i < letters.length; i++) {
             if (action == letters[i]) {
                 letters[i].setText("");
