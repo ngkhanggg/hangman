@@ -86,7 +86,9 @@ public class Frame extends JFrame implements ActionListener {
         this.setVisible(true);
 
         // set first word when the class frame is called
+        getWord();
         setWord();
+        gamePanel.repaint();
     }
 
     // initialize 26 letters for the keyboard
@@ -119,9 +121,13 @@ public class Frame extends JFrame implements ActionListener {
         }
     }
 
+    // get word
+    public void getWord() {
+        this.currentWord = game.getWord();
+    }
+
     // set word
     public void setWord() {
-        this.currentWord = game.getWord();
         this.word.setText(("__ ").repeat(this.currentWord.length()));
         wordPanel.repaint();
     }
@@ -141,6 +147,7 @@ public class Frame extends JFrame implements ActionListener {
         if (action == resetButton) {
             picturePanel.reset();
             resetKeyboard();
+            getWord();
             setWord();
         }
 
