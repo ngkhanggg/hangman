@@ -66,7 +66,7 @@ public class Frame extends JFrame implements ActionListener {
         lettersPanel.setLayout(new GridLayout(2, 13)); // rows, columns
 
         // set up 26 letters
-        initLetters();
+        initKeyboard();
 
         // set up frame
         this.setUndecorated(true);
@@ -82,7 +82,7 @@ public class Frame extends JFrame implements ActionListener {
         setWord();
     }
 
-    public void initLetters() {
+    public void initKeyboard() {
         int i = 0;
         char y = 'A';
         while (i < 26) {
