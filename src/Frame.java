@@ -13,6 +13,8 @@ public class Frame extends JFrame implements ActionListener {
     HangmanPanel picturePanel = new HangmanPanel();
     Game game = new Game();
 
+    String currentWord;
+
     public Frame() {
         // the word
         word = new JLabel();
@@ -111,8 +113,8 @@ public class Frame extends JFrame implements ActionListener {
     }
 
     public void setWord() {
-        String word = game.getWord();
-        this.word.setText(("__ ").repeat(word.length()));
+        this.currentWord = game.getWord();
+        this.word.setText(("__ ").repeat(this.currentWord.length()));
         wordPanel.repaint();
     }
 
