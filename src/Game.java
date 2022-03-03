@@ -3,13 +3,15 @@ import java.util.*;
 
 public class Game {
     private ArrayList <String> words = new ArrayList<String>();
-    private final String fileName = "assets/Words.txt";
+    private String fileName = "assets/Words.txt";
     private String wordToGuess;
 
+    // constructor
     public Game() {
         insertWordsIntoList();
     }
     
+    // count total lines in text file
     public int countLines() {
         int lines = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -21,6 +23,7 @@ public class Game {
         return lines;
     }
 
+    // insert words from text file into an array
     public void insertWordsIntoList() {
         try (Scanner sc = new Scanner(new FileReader(fileName))) {
             while (sc.hasNext()) {
