@@ -72,7 +72,20 @@ public class Frame extends JFrame implements ActionListener {
         lettersPanel.setLayout(new GridLayout(2, 13)); // rows, columns
 
         // set up 26 letters
-        initKeyboard();
+        int index = 0;
+        char letter = 'A';
+        while (index < 26) {
+            letters[index] = new JButton();
+            letters[index].setFocusable(false);
+            letters[index].setFont(new Font("Times New Roman", Font.BOLD, 25));
+            letters[index].setText(Character.toString(letter));
+            letters[index].setBackground(Color.WHITE);
+            letters[index].setForeground(Color.BLACK);
+            letters[index].addActionListener(this);
+            lettersPanel.add(letters[index]);
+            index++;
+            letter++;
+        }
 
         // set up frame
         this.setUndecorated(true);
@@ -89,24 +102,6 @@ public class Frame extends JFrame implements ActionListener {
         getWord();
         setWord();
         gamePanel.repaint();
-    }
-
-    // initialize 26 letters for the keyboard
-    public void initKeyboard() {
-        int i = 0;
-        char y = 'A';
-        while (i < 26) {
-            letters[i] = new JButton();
-            letters[i].setFocusable(false);
-            letters[i].setFont(new Font("Times New Roman", Font.BOLD, 25));
-            letters[i].setText(Character.toString(y));
-            letters[i].setBackground(Color.WHITE);
-            letters[i].setForeground(Color.BLACK);
-            letters[i].addActionListener(this);
-            lettersPanel.add(letters[i]);
-            i++;
-            y++;
-        }
     }
 
     // reset keyboard

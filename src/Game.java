@@ -4,7 +4,6 @@ import java.util.*;
 public class Game {
     private ArrayList <String> words = new ArrayList<String>();
     private String fileName = "assets/Words.txt";
-    private String wordToGuess;
 
     // constructor
     public Game() {
@@ -41,7 +40,6 @@ public class Game {
         Random rd = new Random();
         int line = rd.nextInt(countLines());
         String word = words.get(line).toUpperCase();
-        this.wordToGuess = word;
         return word;
     }
 }

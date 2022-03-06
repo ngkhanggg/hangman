@@ -9,13 +9,13 @@ public class HangmanPanel extends JPanel {
         this.setBackground(Color.WHITE);
     }
 
-    // reset
+    // reset img
     public void reset() {
         count = 0;
         this.repaint();
     }
 
-    // move to next picture if guess if wrong
+    // move to next img if guess if wrong
     public void wrong() {
         count++;
         this.repaint();
@@ -31,6 +31,7 @@ public class HangmanPanel extends JPanel {
     }
 
     public void draw(Graphics g) {
-        g.drawImage(new ImageIcon(String.format("assets/%s.png", count)).getImage(), 300, 25, null);
+        String img = String.format(String.format("assets/%s.png", count));
+        g.drawImage(new ImageIcon(img).getImage(), 300, 25, null);
     }
 }
