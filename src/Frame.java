@@ -12,10 +12,11 @@ public class Frame extends JFrame implements ActionListener {
     // components of the frame
     private JButton[] letters = new JButton[26];
     private JButton resetButton, exitButton;
-    private JLabel word;
+    private JLabel word, status;
     private JPanel lettersPanel, menuPanel, gamePanel, wordPanel;
 
     // variables
+    private String[] lettersInWord;
     private String currentWord;
 
     // constructor
@@ -57,11 +58,18 @@ public class Frame extends JFrame implements ActionListener {
         exitButton.setFocusable(false);
         exitButton.addActionListener(this);
 
+        // win or lose or blank label
+        status = new JLabel();
+        status.setFont(new Font("Cambria", Font.BOLD, 35));
+        status.setHorizontalAlignment(JLabel.CENTER);
+        status.setForeground(Color.BLACK);
+
         // menu panel setup
         menuPanel = new JPanel();
         menuPanel.setLayout(new BorderLayout());
         menuPanel.setPreferredSize(new Dimension(0, 40));
         menuPanel.setBackground(Color.WHITE);
+        menuPanel.add(status, BorderLayout.CENTER);
         menuPanel.add(resetButton, BorderLayout.WEST);
         menuPanel.add(exitButton, BorderLayout.EAST);
 
@@ -101,7 +109,6 @@ public class Frame extends JFrame implements ActionListener {
         // set first word when the class frame is called
         getWord();
         setWord();
-        gamePanel.repaint();
     }
 
     // reset keyboard
@@ -119,12 +126,57 @@ public class Frame extends JFrame implements ActionListener {
     // get word
     public void getWord() {
         this.currentWord = game.getWord();
+        this.lettersInWord = new String[this.currentWord.length()];
+        for (int i = 0; i < this.lettersInWord.length; i++) {
+            this.lettersInWord[i] = "__";
+        }
     }
 
     // set word
     public void setWord() {
-        this.word.setText(("__ ").repeat(this.currentWord.length()));
-        wordPanel.repaint();
+        String s = "";
+        for (int i = 0; i < lettersInWord.length; i++) {
+            s += lettersInWord[i] + " ";
+        }
+        this.word.setText(s);
+    }
+
+    // check chosen letter
+    public void checkLetter(char letter) {
+        if (this.currentWord.indexOf(letter) < 0) {
+            picturePanel.wrong();
+        }
+        for (int i = 0; i < this.currentWord.length(); i++) {
+            if (this.currentWord.charAt(i) == letter) {
+                this.lettersInWord[i] = Character.toString(letter);
+            }
+        }
+        setWord();
+    }
+
+    // check if player is won
+    public boolean isWon() {
+        for (int i = 0; i < this.lettersInWord.length; i++) {
+            if (!this.lettersInWord[i].equalsIgnoreCase(Character.toString(this.currentWord.charAt(i)))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // give win or lose
+    public String getStatus() {
+        return isWon() ? "You Won!" : picturePanel.isLost() ? "You Lost!" : "";
+    }
+
+    // check
+    public void check() {
+        if (isWon() || picturePanel.isLost()) {
+            for (int i = 0; i < letters.length; i++) {
+                letters[i].setEnabled(false);
+            }
+            this.status.setText(getStatus());
+        }
     }
 
     // action performer
@@ -142,6 +194,7 @@ public class Frame extends JFrame implements ActionListener {
         if (action == resetButton) {
             picturePanel.reset();
             resetKeyboard();
+            this.status.setText("");
             getWord();
             setWord();
         }
@@ -149,8 +202,10 @@ public class Frame extends JFrame implements ActionListener {
         // keyboard
         for (int i = 0; i < letters.length; i++) {
             if (action == letters[i]) {
+                checkLetter(letters[i].getText().charAt(0));
                 letters[i].setText("");
                 letters[i].setEnabled(false);
+                check();
             }
         }
     }
