@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Game {
     private ArrayList <String> words = new ArrayList<String>();
-    private String fileName = "assets/Words.txt";
+    private String fileName = "../assets/Words.txt";
 
     // constructor
     public Game() {

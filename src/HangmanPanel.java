@@ -31,7 +31,7 @@ public class HangmanPanel extends JPanel {
     }
 
     public void draw(Graphics g) {
-        String img = String.format(String.format("assets/%s.png", count));
+        String img = String.format(String.format("../assets/%s.png", count));
         g.drawImage(new ImageIcon(img).getImage(), 300, 25, null);
     }
 }
