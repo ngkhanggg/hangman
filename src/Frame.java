@@ -176,6 +176,13 @@ public class Frame extends JFrame implements ActionListener {
                 letters[i].setEnabled(false);
             }
             this.status.setText(getStatus());
+            if (picturePanel.isLost()) {
+                word.setForeground(Color.RED);
+                word.setText(this.currentWord);
+            }
+            else if (isWon()) {
+                word.setForeground(Color.GREEN);
+            }
         }
     }
 
@@ -194,6 +201,7 @@ public class Frame extends JFrame implements ActionListener {
         if (action == resetButton) {
             picturePanel.reset();
             resetKeyboard();
+            word.setForeground(Color.BLACK);
             this.status.setText("");
             getWord();
             setWord();
